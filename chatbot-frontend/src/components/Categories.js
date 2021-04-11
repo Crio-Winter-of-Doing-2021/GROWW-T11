@@ -3,9 +3,15 @@ import { useState, useEffect } from 'react';
 import {  Link} from 'react-router-dom';
 import axios from 'axios';
 import SubHeader from './SubHeader';
+import { useDispatch } from 'react-redux'
+import {close} from '../app/reducers/chatbotToggle';
 
 function Categories(props) {
+    const dispatch = useDispatch();
     const [items,setItems] = useState([]);
+    if(document.querySelector(".react-chatbot-kit-chat-input-container")){
+        document.querySelector(".react-chatbot-kit-chat-input-container").style.display = 'none';
+        }
     var mapper={
         "Stocks":'Stocks',
         "FD":'FDs',
@@ -35,7 +41,7 @@ function Categories(props) {
        <div>
             <SubHeader/>
     <div className="container web-align wrapper">
-            {props.text!=='FD' && <h1 className="heading">{props.text} in News</h1>}
+            {props.text!=='FD' && props.text!=='Gold' && <h1 className="heading">{props.text} in News</h1>}
             {props.text==='FD' && <h1 className="heading">Equitas Bank FDs</h1>}
                <div className="row d-flex justify-content-center">
                {items.map((item)=>{
@@ -43,7 +49,7 @@ function Categories(props) {
                     <Link to={{
                         pathname:reverseMapper[props.text]+'/'+item._id, aboutProps:{item}
                     }} 
-                    className="clickable" key={item._id}>
+                    className="clickable" key={item._id} onClick={()=>dispatch(close())}>
                     {props.text !== 'FD' && 
                    <div className="item-card col-4" key={item._id}>
                        {(props.text === 'Stocks' || props.text === 'Mutual Funds')  && <img src="https://assets-netstorage.groww.in/stock-assets/logos/INE397D01024.png" alt="Product" width="36" height="36"/>}

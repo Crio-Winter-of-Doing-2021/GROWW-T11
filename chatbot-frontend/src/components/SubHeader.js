@@ -18,31 +18,48 @@ export default function SubHeader(props) {
     goldRoute = props.link + goldRoute;
     fdRoute = props.link + fdRoute;
   }
+  if(props.remove)
+  removeClass()
+  else
+  {
+    if(['stocks','mutualfund','fd','gold'].includes(pathname[pathname.length-1]))
+    var selected=document.querySelector("."+pathname[pathname.length-1]);
+    if(selected)
+    selected.classList.add("selected-option");  
+  }
 
   function changeClass(event){
     var selected=document.querySelector(".selected-option");
+    if(selected)
     selected.classList.remove("selected-option");
     var ele=event.target;
     ele.classList.add("selected-option");
   }
+  function removeClass(){
+    var selected=document.querySelector(".selected-option");
+    if(selected)
+    selected.classList.remove("selected-option");
+  }
 
   function onClick(event,route){
+    event.stopPropagation()
     changeClass(event);
     dispatch(close());
     if(props.onClick)
     {
       props.onClick(route)
     }
+
   }
 
     return (
 
           <div className="row options">
           <div className="container web-align">
-          <Link to={stockRoute} className="subLabel selected-option" onClick={(e)=>onClick(e,stockRoute)}>Stocks</Link>
-          <Link to={mfRoute} className="subLabel" onClick={(e)=>onClick(e,mfRoute)}>Mutual Funds</Link>
-          <Link to={fdRoute} className="subLabel" onClick={(e)=>onClick(e,fdRoute)}>Fixed Deposits</Link>
-          <Link to={goldRoute} className="subLabel" onClick={(e)=>onClick(e,goldRoute)}>Gold</Link>
+          <Link to={stockRoute} className="subLabel stocks" onClick={(e)=>{onClick(e,stockRoute)}}>Stocks</Link>
+          <Link to={mfRoute} className="subLabel mutualfund" onClick={(e)=>onClick(e,mfRoute)}>Mutual Funds</Link>
+          <Link to={fdRoute} className="subLabel fd" onClick={(e)=>onClick(e,fdRoute)}>Fixed Deposits</Link>
+          <Link to={goldRoute} className="subLabel gold" onClick={(e)=>onClick(e,goldRoute)}>Gold</Link>
           </div>
           </div>
 

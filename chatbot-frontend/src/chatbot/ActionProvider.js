@@ -10,21 +10,43 @@ class ActionProvider {
     }
   
     greet() {
-      const greetingMessage = this.createChatBotMessage("Hi, friend.")
+      const greetingMessage = this.createChatBotMessage("Please select from available questions")
       this.updateChatbotState(greetingMessage)
     }
 
-    handleAccountList = (text) => {
-      const clientMessage=this.createClientMessage(text)
+    handleCategoryClick = (option) =>{
+      const clientMessage=this.createClientMessage(option.Name);
+      Cookies.set('categoryId',option.categoryId);
+      this.updateChatbotStateWithClientMessage(clientMessage); 
+      const message = this.createChatBotMessage("These are some more categories",
+      {
+      widget: "FullFAQ" }); 
+      this.updateChatbotState(message);
+    }
+
+    handleMoreQuestionsClick = () => {
+      const clientMessage=this.createClientMessage("I have more queries");
+      this.updateChatbotStateWithClientMessage(clientMessage); 
       const message = this.createChatBotMessage(
-        `Fantastic, I've got the following categories in ${text}:`,
+        `Feel free to explore our wide category list`,
         {
-          widget: "javascriptLinks",
+          widget: "FullFAQ",
         }
-      );
-  
-      this.updateChatbotState(message,clientMessage);
-    };
+      ); 
+      this.updateChatbotState(message);
+     
+    }
+
+    handleCategoryQuestionClick =(category) =>{
+      const clientMessage=this.createClientMessage(category.Name);
+      Cookies.set('categoryId',category.categoryId);
+      this.updateChatbotStateWithClientMessage(clientMessage); 
+      const message = this.createChatBotMessage("These are the questions under this category",
+      {
+      widget: "faqSubCategory" }); 
+      this.updateChatbotState(message);
+    }
+    
 
     handleQuestionClick = (selectedQuestion) =>{
       const clientMessage=this.createClientMessage(selectedQuestion.QuestionText);
@@ -57,7 +79,7 @@ class ActionProvider {
       }
      
       
-      axios.get(`http://localhost:8081/get-answer-by-questionId/${selectedQuestion.QuestionId}`,{params:paramList})
+      axios.get(`http://localhost:8081/get-answer-by-questionId/${selectedQuestion.QuestionId}/${selectedQuestion.QuestionPos}`,{params:paramList})
       .then(res => {
         var ans = res.data.Answer;
         var msg=[];
@@ -78,6 +100,11 @@ class ActionProvider {
              ...prevState, messages: [...prevState.messages,...message]
            }))
          }
+    updateChatbotState(message){
+      this.setState(prevState => ({
+        ...prevState, messages: [...prevState.messages,message]
+      }))
+    }
   }
   
   export default ActionProvider;
