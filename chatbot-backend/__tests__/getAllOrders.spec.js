@@ -1,4 +1,5 @@
-const {app,productResponseMap} = require('../app');
+const {app} = require('../app');
+const {productResponseMap} = require("../api_config/ResponseMapper");
 const supertest = require('supertest');
 const mongoose = require('mongoose');
 const { Order } = require('../models/order');
@@ -16,7 +17,6 @@ describe("Testing '/getAllOrders' API",()=> {
             order = order.toJSON();
             const products = productResponseMap(order.productDocs,order.category);
             delete order.productDocs;
-            delete order.faqId;
             delete order.userId;
             answers.push({...order,_id: order._id.toString(),products: products});
         }
