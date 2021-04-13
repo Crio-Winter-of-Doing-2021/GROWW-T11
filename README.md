@@ -3,6 +3,7 @@ Team ID: GROWW-T11 | Team Members: Arnab Ghosh &amp; Sonal Prabhu
 
 ![Groww-website](https://user-images.githubusercontent.com/35455325/114377392-3d47f580-9ba4-11eb-83d9-f4f16f33669a.JPG)
 
+
 ![Groww-admin-portal-add-faq](https://drive.google.com/uc?export=view&id=1MWQOqxID2ulxeWSujsHk5NpnpTeQ0Pkz)
 
 # Deployed URLs
@@ -32,6 +33,7 @@ Team ID: GROWW-T11 | Team Members: Arnab Ghosh &amp; Sonal Prabhu
     2. HTML,CSS,Bootstrap,Material UI
 
 
+
 # Chatbot Frontend Folder Structure
 * **src/app** - Contains Redux store and reducers
 * **src/assets** - Contains image files
@@ -39,6 +41,7 @@ Team ID: GROWW-T11 | Team Members: Arnab Ghosh &amp; Sonal Prabhu
 * **src/chatbot-widgets** - Custom components that are used by chatbot
 * **src/components** - Contains basic pages for the dummy Groww website
 * **src/services** - Includes function for login/logout
+
 
 # Chatbot Backend Folder Structure
 * **api_config** - Contains files for configuring the request/response mappers along with router creation.
@@ -53,6 +56,7 @@ Team ID: GROWW-T11 | Team Members: Arnab Ghosh &amp; Sonal Prabhu
 * **src/Config** - Contains the path URLs for different forms along with secured flags
 * **src/Context** - React Context API and useReducer Hook for state management of superuser doing the actions on the portal
 * **src/queries** - Contains all the API call functions to the backend using axios.
+
 
 
 
